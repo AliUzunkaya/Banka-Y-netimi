@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct BankaHesabi {
+    char isim[50];
+    int hesapNumarasi;
+    double bakiye;
+};
+
+struct BankaHesabi kullanici;
+
+void hesapOlustur() {
+    printf("Isim: ");
+    scanf("%s", kullanici.isim);
+
+    printf("Hesap numarasi: ");
+    scanf("%d", &kullanici.hesapNumarasi);
+
+    printf("Baslangic bakiyesi: ");
+    scanf("%lf", &kullanici.bakiye);
+
+    printf("Hesap olusturuldu.\n");
+}
+
+void bakiyeGoruntule() {
+    printf("Hesap bakiyesi: %.2f\n", kullanici.bakiye);
+}
+
+void paraYatir() {
+    double miktar;
+    printf("Yatirilacak miktar: ");
+    scanf("%lf", &miktar);
+
+    kullanici.bakiye += miktar;
+    printf("Para yatirma basarili. Yeni bakiye: %.2f\n", kullanici.bakiye);
+}
+
+void paraCek() {
+    double miktar;
+    printf("Cekilecek miktar: ");
+    scanf("%lf", &miktar);
+
+    if (miktar > kullanici.bakiye) {
+        printf("Yetersiz bakiye.\n");
+        return;
+    }
+
+    kullanici.bakiye -= miktar;
+    printf("Para cekme basarili. Yeni bakiye: %.2f\n", kullanici.bakiye);
+}
+
+void menuGoster() {
+    printf("\n1. Hesap Olustur\n");
+    printf("2. Bakiye Goruntule\n");
+    printf("3. Para Yatir\n");
+    printf("4. Para Cek\n");
+    printf("5. Cikis\n");
+    printf("Seciminizi yapin: ");
+}
+
+int main() {
+    int secim;
+
+    do {
+        menuGoster();
+        scanf("%d", &secim);
+
+        switch (secim) {
+            case 1:
+                hesapOlustur();
+                break;
+            case 2:
+                bakiyeGoruntule();
+                break;
+            case 3:
+                paraYatir();
+                break;
+            case 4:
+                paraCek();
+                break;
+            case 5:
+                printf("Programdan cikiliyor.\n");
+                break;
+            default:
+                printf("Geçersiz secim. Lütfen tekrar deneyin.\n");
+                break;
+        }
+    } while (secim != 5);
+
+    return 0;
+}
